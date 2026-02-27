@@ -44,7 +44,7 @@ const Auth = {
     },
     
     protectPage() {
-        if(!this.isLoggedIn()) { window.location.href='login.html'; return false; }
+        if(!this.isLoggedIn()) { window.location.href='index.html'; return false; }
         return true;
     },
     
