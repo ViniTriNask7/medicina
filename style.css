@@ -912,3 +912,44 @@ body.login-page::before {
     position: relative;
     z-index: 2;
 }
+@media (orientation: portrait) {
+
+    /* Corrige problemas de altura */
+    body {
+        min-height: 100svh;
+    }
+
+    main {
+        padding: 16px;
+    }
+
+    /* Remove alturas fixas problemáticas */
+    .focus-workspace {
+        height: auto;
+        grid-template-columns: 1fr;
+    }
+
+    /* Header empilhado */
+    .header-dash {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 12px;
+    }
+
+    /* Botões e widgets ocupam largura total */
+    .timer-mini,
+    .btn-primary-big {
+        width: 100%;
+        justify-content: center;
+    }
+
+    /* Cards mais compactos */
+    .stat-card {
+        padding: 20px;
+    }
+
+    /* Evita overflow lateral */
+    * {
+        max-width: 100%;
+    }
+}
