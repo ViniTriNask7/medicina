@@ -953,3 +953,39 @@ body.login-page::before {
         max-width: 100%;
     }
 }
+@media (max-width: 900px) {
+
+    /* Esconde sidebar no celular */
+    .sidebar {
+        position: fixed;
+        left: -100%;
+        top: 0;
+        height: 100%;
+        z-index: 1000;
+        transition: 0.3s ease;
+    }
+
+    .sidebar.active {
+        left: 0;
+    }
+
+    /* Conteúdo ocupa tudo */
+    main {
+        margin-left: 0 !important;
+        width: 100% !important;
+    }
+
+    /* Header empilha */
+    .header-dash {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 16px;
+    }
+
+    /* Timer empilha */
+    .timer-mini {
+        width: 100%;
+        justify-content: center;
+    }
+
+}
