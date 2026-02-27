@@ -877,7 +877,7 @@ body::before {
     height: 280px; /* aumentei a altura */
     border-radius: 24px;
     margin-top: 20px;
-    background-image: url("../images/ucp.jpg");
+    background-image: url("images/ucp.jpg");
     background-size: cover;
     background-position: center top; /* mostra mais o topo */
     background-repeat: no-repeat;
@@ -892,7 +892,7 @@ body::before {
 /* ===== LOGIN BACKGROUND PROFISSIONAL ===== */
 
 body.login-page {
-    background: url("../images/ucp.jpg") no-repeat center center fixed !important;
+    background: url("images/ucp.jpg") no-repeat center center fixed !important;
     background-size: cover !important;
     position: relative;
 }
