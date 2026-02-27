@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Medicina PY | Entrar</title>
+
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&family=Poppins:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body class="theme-default login-page">
+
+    <div class="login-container">
+        <div class="login-box">
+            <div class="login-logo">⚕️</div>
+            <h1 class="login-title">Medicina PY</h1>
+            <p class="login-subtitle">Digite seu nome e senha para continuar</p>
+
+            <form id="login-form" onsubmit="handleLogin(event)">
+                
+                <div class="login-input-group">
+                    <label for="user-name">Seu Nome</label>
+                    <input 
+                        type="text" 
+                        id="user-name" 
+                        class="login-input" 
+                        placeholder="Ex: Vinícius Catelani"
+                        maxlength="50"
+                        autocomplete="off"
+                    >
+                </div>
+
+                <div class="login-input-group">
+                    <label for="user-password">Senha</label>
+                    <input 
+                        type="password" 
+                        id="user-password" 
+                        class="login-input" 
+                        placeholder="Digite a senha"
+                    >
+                </div>
+
+                <button type="submit" class="login-btn">
+                    <i class="fa-solid fa-arrow-right"></i>
+                    Entrar
+                </button>
+
+                <p class="login-error" id="login-error" style="display:none;">
+                    <i class="fa-solid fa-circle-exclamation"></i>
+                    Erro
+                </p>
+
+            </form>
+
+            <div class="login-footer">
+                <p>Escolha um tema:</p>
+                <div class="theme-preview">
+                    <div class="theme-preview-dot active" style="background: #1e293b;" onclick="setThemePreview('default')" title="Padrão"></div>
+                    <div class="theme-preview-dot" style="background: #ffffff;" onclick="setThemePreview('white')" title="Claro"></div>
+                    <div class="theme-preview-dot" style="background: #000000;" onclick="setThemePreview('dark')" title="Noturno"></div>
+                    <div class="theme-preview-dot" style="background: #0a3d28;" onclick="setThemePreview('ucp')" title="UCP"></div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+<script>
+    // ===============================
+    // CONFIGURAÇÃO
+    // ===============================
+
+    const USER_KEY = 'medicina_py_user';
+    const THEME_KEY = 'medicina_py_theme';
+    const ACCESS_PASSWORD = "med2026"; // MUDE AQUI SUA SENHA
+
+    // Se já estiver logado → vai direto
+    if (localStorage.getItem(USER_KEY)) {
+        window.location.href = 'dashboard.html';
+    }
+
+    function handleLogin(event) {
+        event.preventDefault();
+
+        const nameInput = document.getElementById('user-name');
+        const passwordInput = document.getElementById('user-password');
+        const errorMsg = document.getElementById('login-error');
+
+        const userName = nameInput.value.trim();
+        const password = passwordInput.value;
+
+        // Validar nome
+        if (!userName) {
+            errorMsg.innerText = "Digite seu nome.";
+            errorMsg.style.display = "block";
+            nameInput.focus();
+            return;
+        }
+
+        // Validar senha
+        if (password !== ACCESS_PASSWORD) {
+            errorMsg.innerText = "Senha incorreta.";
+            errorMsg.style.display = "block";
+            passwordInput.focus();
+            return;
+        }
+
+        // Se estiver tudo certo
+        errorMsg.style.display = "none";
+        localStorage.setItem(USER_KEY, userName);
+        window.location.href = 'dashboard.html';
+    }
+
+    function setThemePreview(themeName) {
+        document.body.classList.remove('theme-default', 'theme-white', 'theme-dark', 'theme-ucp');
+        if (themeName !== 'default') {
+            document.body.classList.add('theme-' + themeName);
+        }
+        localStorage.setItem(THEME_KEY, themeName);
+    }
+
+    document.getElementById('user-name').addEventListener('input', () => {
+        document.getElementById('login-error').style.display = "none";
+    });
+
+    document.getElementById('user-password').addEventListener('input', () => {
+        document.getElementById('login-error').style.display = "none";
+    });
+
+    document.addEventListener('DOMContentLoaded', () => {
+        document.getElementById('user-name').focus();
+    });
+
+</script>
+
+</body>
+</html>
