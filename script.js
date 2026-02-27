@@ -30,7 +30,7 @@ const Auth = {
     
     logout() {
         localStorage.removeItem(this.USER_KEY);
-        window.location.href='login.html';
+        window.location.href = './';
     },
     
     updateUserInterface() {
