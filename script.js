@@ -138,6 +138,10 @@ function init(){
 // ==========================================================
 function setTheme(themeName){ Auth.setTheme(themeName); }
 function switchView(viewName){
+     const sidebar = document.querySelector('.sidebar');
+    const overlay = document.querySelector('.sidebar-overlay');
+    sidebar?.classList.remove('active');
+    overlay?.classList.remove('active');
     document.querySelectorAll('.view-section').forEach(el=>el.classList.remove('active'));
     document.querySelectorAll('.nav-btn').forEach(el=>el.classList.remove('active'));
     const targetView=document.getElementById('view-'+viewName);
@@ -550,3 +554,41 @@ window.addEventListener("load", () => {
         profileImage.src = savedImage;
     }
 });
+// Carregar imagem salva ao abrir página
+window.addEventListener("load", () => {
+    const savedImage = localStorage.getItem("profileImage");
+    if (savedImage) {
+        profileImage.src = savedImage;
+    }
+});
+// ==========================================================
+// --- SIDEBAR MOBILE ---
+// ==========================================================
+function toggleSidebar() {
+    const sidebar = document.querySelector('.sidebar');
+    const overlay = document.querySelector('.sidebar-overlay');
+    
+    sidebar?.classList.toggle('active');
+    
+    // O overlay fecha junto
+    if (overlay) {
+        overlay.classList.toggle('active');
+    }
+}
+// isso faz a ponte entre o HTML e o sistema de temas
+window.setTheme = function(themeName) {
+    Auth.setTheme(themeName);
+};
+    function setThemePreview(themeName) {
+        // Remove todas as classes de tema existentes
+        document.body.classList.remove('theme-default', 'theme-white', 'theme-dark', 'theme-ucp');
+        
+        // Adiciona a nova classe de tema (se não for 'default')
+        if (themeName !== 'default') {
+            document.body.classList.add('theme-' + themeName);
+        }
+        
+        // Salva a escolha
+        localStorage.setItem(THEME_KEY, themeName);
+    }
+    
