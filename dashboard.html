@@ -3,137 +3,248 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Medicina PY | Entrar</title>
-
+    <title>Medicina PY | Next Gen</title>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&family=Poppins:wght@400;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="stylesheet" href="style.css">
 </head>
+<body class="theme-default"> 
+        <div class="sidebar-overlay" onclick="toggleSidebar()"></div>
+   <aside class="sidebar">
+    <div class="brand">⚕️ MEDICINA</div>
+    
+    <nav>
+        <button class="nav-btn active" id="btn-home" onclick="switchView('home')">
+            <i class="fa-solid fa-house"></i> <span>Início</span>
+        </button>
+        <button class="nav-btn" id="btn-semestres" onclick="switchView('semestres')">
+            <i class="fa-solid fa-layer-group"></i> <span>Semestres</span>
+        </button>
+        <button class="nav-btn" id="btn-calendario" onclick="switchView('calendario')">
+            <i class="fa-solid fa-calendar-days"></i> <span>Calendário</span>
+        </button>
+    </nav>
 
-<body class="theme-default login-page">
+    <div class="sidebar-footer">
+        <p style="font-size: 0.7rem; color: var(--text-muted); margin-bottom: 8px; font-weight: bold; text-transform: uppercase;">Temas</p>
+        <div class="theme-selector" style="display: flex; gap: 8px; margin-bottom: 20px;">
+            <div class="theme-dot" style="background: #1e293b; width: 20px; height: 20px; border-radius: 50%; cursor: pointer; border: 2px solid var(--border);" onclick="setTheme('default')" title="Padrão"></div>
+            <div class="theme-dot" style="background: #ffffff; width: 20px; height: 20px; border-radius: 50%; cursor: pointer; border: 2px solid var(--border);" onclick="setTheme('white')" title="Claro"></div>
+            <div class="theme-dot" style="background: #000000; width: 20px; height: 20px; border-radius: 50%; cursor: pointer; border: 2px solid var(--border);" onclick="setTheme('dark')" title="Noturno"></div>
+            <div class="theme-dot" style="background: #0a3d28; width: 20px; height: 20px; border-radius: 50%; cursor: pointer; border: 2px solid #facc15;" onclick="setTheme('ucp')" title="UCP"></div>
+        </div>
 
-    <div class="login-container">
-        <div class="login-box">
-            <div class="login-logo">⚕️</div>
-            <h1 class="login-title">Medicina PY</h1>
-            <p class="login-subtitle">Digite seu nome e senha para continuar</p>
+        <div class="user-profile">
+            <div class="avatar" id="user-avatar">VC</div>
+            <div class="profile-info">
+                <p id="user-name-display">Usuário</p>
+                <small>UCP - Medicina</small>
+            </div>
+        </div>
+        
+        <!-- BOTÃO DE SAIR -->
+        <div style="margin-top: 15px; padding-top: 15px; border-top: 1px solid var(--border);">
+            <button onclick="logout()" style="background: transparent; border: 1px solid var(--border); color: var(--text-muted); width: 100%; padding: 10px; border-radius: 10px; cursor: pointer; display: flex; align-items: center; gap: 10px; justify-content: center; font-size: 0.9rem; transition: 0.3s;">
+                <i class="fa-solid fa-right-from-bracket"></i> Sair
+            </button>
+        </div>
+    </div>
+</aside>
 
-            <form id="login-form" onsubmit="handleLogin(event)">
+    <main>
+        <section id="view-home" class="view-section active">
+            <div class="header-dash">
+                <div>
+                    <h1 id="welcome-message">Olá, Vinícius! 👋</h1>
+                    <p>Continue construindo sua jornada médica hoje.</p>
+                </div>
                 
-                <div class="login-input-group">
-                    <label for="user-name">Seu Nome</label>
-                    <input 
-                        type="text" 
-                        id="user-name" 
-                        class="login-input" 
-                        placeholder="Ex: Vinícius Catelani"
-                        maxlength="50"
-                        autocomplete="off"
-                    >
+                <div style="display: flex; gap: 10px; align-items: center;">
+                   <button class="mobile-menu-btn" onclick="toggleSidebar()">
+    <i class="fa-solid fa-bars"></i>
+</button> 
+</button>
+                    <div class="timer-mini" onclick="toggleMainTimer()">
+                        <div class="play-btn" id="main-timer-status-icon">
+                            <i class="fa-solid fa-play"></i>
+                        </div>
+                        <span id="display-main-timer" style="font-family: monospace; font-weight: bold; font-size: 1.1rem;">00:00:00</span>
+                    </div>
+                    <button onclick="stopAndGoHome()" style="background: #ef4444; border: none; width: 45px; height: 45px; border-radius: 50%; color: white; cursor: pointer; display: flex; align-items: center; justify-content: center; transition: 0.2s; box-shadow: 0 4px 15px rgba(239, 68, 68, 0.3);" title="Finalizar Sessão">
+                        <i class="fa-solid fa-stop"></i>
+                    </button>
                 </div>
-
-                <div class="login-input-group">
-                    <label for="user-password">Senha</label>
-                    <input 
-                        type="password" 
-                        id="user-password" 
-                        class="login-input" 
-                        placeholder="Digite a senha"
-                    >
+            </div>
+                <div class="home-hero">
+    <div class="hero-overlay">
+        <h2>Universidade Central del Paraguay</h2>
+        <p>Construindo o futuro da Medicina.</p>
+    </div>
+</div>
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <span>Estudo Hoje</span>
+                    <h3 id="stat-time">0h 0m</h3>
                 </div>
-
-                <button type="submit" class="login-btn">
-                    <i class="fa-solid fa-arrow-right"></i>
-                    Entrar
-                </button>
-
-                <p class="login-error" id="login-error" style="display:none;">
-                    <i class="fa-solid fa-circle-exclamation"></i>
-                    Erro
-                </p>
-
-            </form>
-
-            <div class="login-footer">
-                <p>Escolha um tema:</p>
-                <div class="theme-preview">
-                    <div class="theme-preview-dot active" style="background: #1e293b;" onclick="setThemePreview('default')" title="Padrão"></div>
-                    <div class="theme-preview-dot" style="background: #ffffff;" onclick="setThemePreview('white')" title="Claro"></div>
-                    <div class="theme-preview-dot" style="background: #000000;" onclick="setThemePreview('dark')" title="Noturno"></div>
-                    <div class="theme-preview-dot" style="background: #0a3d28;" onclick="setThemePreview('ucp')" title="UCP"></div>
+                <div class="stat-card" style="cursor: pointer;" onclick="switchView('semestres')">
+                    <span>Semestre Atual</span>
+                    <h3 id="stat-sem">1º</h3>
+                </div>
+                <div class="stat-card" style="cursor: pointer;" onclick="resumeStudy()">
+                    <span>Última Matéria</span>
+                    <h3 id="stat-last-sub">Nenhuma</h3>
                 </div>
             </div>
 
-        </div>
+            <div id="home-agenda-widget" style="margin-top: 20px; padding: 20px; background: var(--bg-card, #fff); border-radius: 16px; border: 1px solid var(--border); box-shadow: var(--shadow);">
+                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px;">
+                    <h3 style="margin: 0; font-size: 1.1rem; color: var(--text-main);"><i class="fa-solid fa-calendar-day" style="color: var(--primary); margin-right: 8px;"></i>Agenda de Hoje</h3>
+                    <button onclick="switchView('calendario')" style="background: none; border: none; color: var(--primary); font-weight: 600; cursor: pointer; font-size: 0.85rem;">Ver calendário completo</button>
+                </div>
+                <div id="aula-hoje" style="color: var(--text-main); font-weight: 500; min-height: 20px;">Carregando compromissos...</div>
+                <div id="aula-amanha" style="margin-top: 10px; font-size: 0.85rem; color: var(--text-muted); border-top: 1px solid var(--border); padding-top: 10px;">Amanhã: Carregando...</div>
+            </div>
+
+            <button class="btn-primary-big" onclick="switchView('semestres')" style="margin-top: 20px;">
+                <i class="fa-solid fa-graduation-cap"></i> Explorar Semestres
+            </button>
+        </section>
+
+            <section id="view-calendario" class="view-section">
+            
+            <!-- Botão Voltar (Celular) -->
+            <button class="mobile-back-btn" onclick="switchView('home')">
+                <i class="fa-solid fa-arrow-left"></i> Voltar
+            </button>
+
+            <!-- Cabeçalho Arrumado -->
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 25px; width: 100%;">
+                <h2 style="margin: 0;">📅 Agenda</h2>
+                
+                <button onclick="document.getElementById('form-agenda-box').style.display='block'" 
+                        style="background: var(--primary); border: none; color: white; padding: 10px 18px; border-radius: 10px; font-weight: bold; cursor: pointer; display: flex; align-items: center; gap: 8px;">
+                    <i class="fa-solid fa-plus"></i> <span style="font-size: 0.9rem;">Novo</span>
+                </button>
+            </div>
+
+            <div id="form-agenda-box" style="display:none; background: var(--bg-card); padding: 25px; border-radius: 16px; border: 1px solid var(--border); margin-bottom: 30px; box-shadow: var(--shadow);">
+                <!-- ... resto do formulário ... -->
+                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 15px;">
+                    <div>
+                        <label style="display:block; font-size: 0.8rem; margin-bottom: 5px;">Matéria</label>
+                        <select id="cal-materia" style="width:100%; padding: 12px; border-radius: 8px; border: 1px solid var(--border); background: var(--bg-main); color: var(--text-main);"></select>
+                    </div>
+                    <div>
+                        <label style="display:block; font-size: 0.8rem; margin-bottom: 5px;">Data</label>
+                        <input type="date" id="cal-data" style="width:100%; padding: 12px; border-radius: 8px; border: 1px solid var(--border); background: var(--bg-main); color: var(--text-main);">
+                    </div>
+                    <div>
+                        <label style="display:block; font-size: 0.8rem; margin-bottom: 5px;">Duração (horas)</label>
+                        <input type="number" id="cal-horas" placeholder="Ex: 2" style="width:100%; padding: 12px; border-radius: 8px; border: 1px solid var(--border); background: var(--bg-main); color: var(--text-main);">
+                    </div>
+                    <div>
+                        <label style="display:block; font-size: 0.8rem; margin-bottom: 5px;">Tipo</label>
+                        <select id="cal-tipo" style="width:100%; padding: 12px; border-radius: 8px; border: 1px solid var(--border); background: var(--bg-main); color: var(--text-main);">
+                            <option value="Teórica">Teórica</option>
+                            <option value="Prática">Prática</option>
+                            <option value="Prova">Prova/Avaliação</option>
+                        </select>
+                    </div>
+                </div>
+                <div style="margin-top: 20px; display: flex; gap: 10px; justify-content: flex-end;">
+                    <button onclick="document.getElementById('form-agenda-box').style.display='none'" style="background: transparent; border: 1px solid var(--border); color: var(--text-main); padding: 10px 20px; border-radius: 8px; cursor: pointer;">Cancelar</button>
+                    <button onclick="MedCalendar.adicionarEvento()" style="background: var(--primary); color: white; border: none; padding: 10px 20px; border-radius: 8px; cursor: pointer; font-weight: bold;">Salvar Evento</button>
+                </div>
+            </div>
+
+            <div id="calendario-grid" style="display: flex; flex-direction: column; gap: 15px;">
+                </div>
+        </section>
+
+        <section id="view-semestres" class="view-section">
+                        <!-- Botão Voltar Celular -->
+            <button class="mobile-back-btn" onclick="switchView('home')">
+                <i class="fa-solid fa-arrow-left"></i> Voltar
+            </button>
+
+            <h2 style="margin-bottom: 25px;">Trilha Acadêmica</h2>
+            <div class="sem-grid" id="container-semestres"></div>
+        </section>
+
+        <section id="view-focus" class="view-section">
+            <div class="focus-workspace">
+                <aside class="focus-sidebar">
+                    <div class="back-btn" onclick="switchView('semestres')">← Voltar</div>
+                                   <h3 id="focus-sem-title">1º Semestre</h3>
+                    <div class="subjects-menu-scroll" id="focus-subjects-list"></div>
+                </aside>
+
+                <div class="focus-main">
+                    <header class="focus-header">
+                        <div class="focus-title-box">
+                            <h2 id="focus-active-subject">Selecione uma matéria</h2>
+                        </div>
+                        <div class="pomodoro-widget">
+                            <span class="pomo-display" id="pomo-timer">25:00</span>
+                            <button class="pomo-btn" onclick="togglePomodoro()">
+                                <i class="fa-solid fa-play" id="pomo-icon"></i>
+                            </button>
+                            <button class="pomo-btn" onclick="resetPomodoro()">
+                                <i class="fa-solid fa-rotate-right"></i>
+                            </button>
+                        </div>
+                    </header>
+                    
+                    <nav class="focus-tabs">
+                        <button class="tab-btn active" onclick="switchTab('notes')">Anotações</button>
+                        <button class="tab-btn" onclick="switchTab('tasks')">Tarefas</button>
+                        <button class="tab-btn" onclick="switchTab('files')">Arquivos</button>
+                        <button class="tab-btn" onclick="switchTab('video')">Vídeo Aula</button>
+                    </nav>
+
+                    <div class="focus-content-area">
+                        <div id="tab-notes" class="tab-content active">
+                            <textarea class="smart-notes" id="note-editor" placeholder="Suas anotações são salvas automaticamente..."></textarea>
+                        </div>
+
+                        <div id="tab-tasks" class="tab-content">
+                            <div class="task-input-box">
+                                <input type="text" id="task-input" placeholder="O que precisa estudar?">
+                                <button onclick="addTask()"><i class="fa-solid fa-plus"></i></button>
+                            </div>
+                            <div class="tasks-container" id="tasks-list"></div>
+                        </div>
+
+                        <div id="tab-files" class="tab-content">
+                            <div id="drop-zone" class="drop-zone">
+                                <i class="fa-solid fa-cloud-arrow-up"></i>
+                                <p>Arraste arquivos aqui ou clique para selecionar</p>
+                                <small>Limite de 1GB por arquivo</small>
+                                <input type="file" id="file-input" hidden multiple>
+                            </div>
+                            <div id="file-list" class="file-list-container"></div>
+                        </div>
+
+                     <div id="tab-video" class="tab-content">
+    <div class="video-input-box">
+        <input type="text" id="youtube-url" placeholder="Cole o link do YouTube...">
+        <button onclick="addYouTubeVideo()"><i class="fa-solid fa-plus"></i> Adicionar</button>
     </div>
+    
+    <div id="video-grid" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 20px;"></div>
 
-<script>
-    // ===============================
-    // CONFIGURAÇÃO
-    // ===============================
+    <div id="video-placeholder-empty" class="video-placeholder">
+        <i class="fa-brands fa-youtube"></i>
+        <p>Adicione vídeos para esta matéria</p>
+    </div>
+</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
 
-    const USER_KEY = 'medicina_py_user';
-    const THEME_KEY = 'medicina_py_theme';
-    const ACCESS_PASSWORD = "med2026"; // MUDE AQUI SUA SENHA
-
-    // Se já estiver logado → vai direto
-    if (localStorage.getItem(USER_KEY)) {
-        window.location.href = 'dashboard.html';
-    }
-
-    function handleLogin(event) {
-        event.preventDefault();
-
-        const nameInput = document.getElementById('user-name');
-        const passwordInput = document.getElementById('user-password');
-        const errorMsg = document.getElementById('login-error');
-
-        const userName = nameInput.value.trim();
-        const password = passwordInput.value;
-
-        // Validar nome
-        if (!userName) {
-            errorMsg.innerText = "Digite seu nome.";
-            errorMsg.style.display = "block";
-            nameInput.focus();
-            return;
-        }
-
-        // Validar senha
-        if (password !== ACCESS_PASSWORD) {
-            errorMsg.innerText = "Senha incorreta.";
-            errorMsg.style.display = "block";
-            passwordInput.focus();
-            return;
-        }
-
-        // Se estiver tudo certo
-        errorMsg.style.display = "none";
-        localStorage.setItem(USER_KEY, userName);
-        window.location.href = 'dashboard.html';
-    }
-
-    function setThemePreview(themeName) {
-        document.body.classList.remove('theme-default', 'theme-white', 'theme-dark', 'theme-ucp');
-        if (themeName !== 'default') {
-            document.body.classList.add('theme-' + themeName);
-        }
-        localStorage.setItem(THEME_KEY, themeName);
-    }
-
-    document.getElementById('user-name').addEventListener('input', () => {
-        document.getElementById('login-error').style.display = "none";
-    });
-
-    document.getElementById('user-password').addEventListener('input', () => {
-        document.getElementById('login-error').style.display = "none";
-    });
-
-    document.addEventListener('DOMContentLoaded', () => {
-        document.getElementById('user-name').focus();
-    });
-
-</script>
-
+    <script src="script.js"></script>
 </body>
 </html>
